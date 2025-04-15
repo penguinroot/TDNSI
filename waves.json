@@ -3,7 +3,7 @@
         "name": "Wave 1",
         "enemies": [
             { "type": "enemy", "count": 5 },
-            { "type": "enemytank", "count": 2 },
+            { "type": "enemyslow", "count": 2 },
             { "type": "enemyfast", "count": 3 }
         ]
     },
@@ -11,7 +11,7 @@
         "name": "Wave 2",
         "enemies": [
             { "type": "enemy", "count": 15 },
-            { "type": "enemytank", "count": 5 }
+            { "type": "enemyslow", "count": 5 }
         ]
     },
     "wave3": {
@@ -19,7 +19,7 @@
         "enemies": [
             { "type": "enemy", "count": 10 },
             { "type": "enemyfast", "count": 5 },
-            { "type": "enemytank", "count": 3 }
+            { "type": "enemyslow", "count": 3 }
         ]
     },
     "wave4": {
@@ -27,7 +27,7 @@
         "enemies": [
             { "type": "enemy", "count": 20 },
             { "type": "enemyfast", "count": 10 },
-            { "type": "enemytank", "count": 5 }
+            { "type": "enemyslow", "count": 5 }
         ]
     },
     "wave5": {
@@ -35,7 +35,7 @@
         "enemies": [
             { "type": "enemy", "count": 25 },
             { "type": "enemyfast", "count": 15 },
-            { "type": "enemytank", "count": 8 }
+            { "type": "enemyslow", "count": 8 }
         ]
     },
     "wave6": {
@@ -43,7 +43,7 @@
         "enemies": [
             { "type": "enemy", "count": 30 },
             { "type": "enemyfast", "count": 20 },
-            { "type": "enemytank", "count": 10 }
+            { "type": "enemyslow", "count": 10 }
         ]
     },
     "wave7": {
@@ -51,7 +51,7 @@
         "enemies": [
             { "type": "enemy", "count": 35 },
             { "type": "enemyfast", "count": 25 },
-            { "type": "enemytank", "count": 12 }
+            { "type": "enemyslow", "count": 12 }
         ]
     },
     "wave8": {
@@ -59,7 +59,7 @@
         "enemies": [
             { "type": "enemy", "count": 40 },
             { "type": "enemyfast", "count": 30 },
-            { "type": "enemytank", "count": 15 }
+            { "type": "enemyslow", "count": 15 }
         ]
     }
 }
