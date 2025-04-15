@@ -8,7 +8,7 @@ from projectile import Projectile, MortarProjectile  # Import MortarProjectile
 from PIL import Image, ImageTk  # Importer Pillow pour le redimensionnement
 from MortarTower import MortarTower  # Ajoutez cette ligne pour importer MortarTower
 from tkinter import simpledialog  # Import simpledialog correctly
-
+from MachineGunTower import MachineGunTower  # Importer MachineGunTower
 
 class TowerDefense:
     def __init__(self, root):
@@ -192,9 +192,11 @@ class TowerDefense:
             try:
                 icon1 = ImageTk.PhotoImage(Image.open("tower1_icon.png").resize((64, 64)))
                 icon2 = ImageTk.PhotoImage(Image.open("MortarTower_icon.png").resize((64, 64)))
+                icon_machine_gun = ImageTk.PhotoImage(Image.open("MachineGunTower_icon.png").resize((64, 64)))  # Nouvelle icône
             except FileNotFoundError:
                 icon1 = tk.PhotoImage()  # Image vide si fichier manquant
                 icon2 = tk.PhotoImage()
+                icon_machine_gun = tk.PhotoImage()  # Image vide si fichier manquant
 
             # Configuration du style
             btn_frame = tk.Frame(dialog, padx=20, pady=20)
@@ -229,6 +231,22 @@ class TowerDefense:
             MortarTower_btn.grid(row=0, column=1, padx=10)
             if self.money < 30:
                 MortarTower_btn.config(state='disabled')
+
+            # Bouton Tour Mitrailleuse
+            machine_gun_btn = tk.Button(
+                btn_frame,
+                image=icon_machine_gun,
+                text=f"Mitrailleuse\n30$",
+                compound='top',
+                font=('Arial', 10, 'bold'),
+                fg='red' if self.money >= 30 else 'gray',
+                command=lambda: self.create_tower(valid_pos, "MachineGunTower", dialog)
+            )
+            machine_gun_btn.image = icon_machine_gun  # Garder une référence
+            machine_gun_btn.grid(row=0, column=2, padx=10)
+            if self.money < 30:
+                machine_gun_btn.config(state='disabled')
+
             # Centrage de la fenêtre
             dialog.update_idletasks()
             width = dialog.winfo_width()
@@ -239,7 +257,6 @@ class TowerDefense:
 
         else:
             print("Position invalide pour une tour")
-
     def create_tower(self, position, tower_type, dialog):
         dialog.destroy()
         x, y = position
@@ -254,6 +271,11 @@ class TowerDefense:
             new_tower = MortarTower(x, y)
             self.towers.append(new_tower)
             new_tower.canvas_id = self.canvas.create_rectangle(x-15, y-15, x+15, y+15, fill="red", tags="tower")
+            self.money -= 30
+        if tower_type == "MachineGunTower" and self.money >= 30:
+            new_tower = MachineGunTower(x, y)
+            self.towers.append(new_tower)
+            new_tower.canvas_id = self.canvas.create_rectangle(x-15, y-15, x+15, y+15, fill="green", tags="tower")
             self.money -= 30
     def upgrade_tower(self, tower, dialog):
         if self.money >= tower.upgrade_cost:
