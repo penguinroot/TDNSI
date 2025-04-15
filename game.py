@@ -3,7 +3,7 @@ import json
 from enemy import Enemy
 from enemyfast import Enemy as EnemyFast  # Import EnemyFast
 from enemyslow import Enemy as EnemySlow  # Import EnemyTank
-from Tower import Tower
+from tower import Tower
 from projectile import Projectile, MortarProjectile  # Import MortarProjectile
 from PIL import Image, ImageTk  # Importer Pillow pour le redimensionnement
 from MortarTower import MortarTower  # Ajoutez cette ligne pour importer MortarTower
