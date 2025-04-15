@@ -1,0 +1,65 @@
+{
+    "wave1": {
+        "name": "Wave 1",
+        "enemies": [
+            { "type": "enemy", "count": 5 },
+            { "type": "enemytank", "count": 2 },
+            { "type": "enemyfast", "count": 3 }
+        ]
+    },
+    "wave2": {
+        "name": "Wave 2",
+        "enemies": [
+            { "type": "enemy", "count": 15 },
+            { "type": "enemytank", "count": 5 }
+        ]
+    },
+    "wave3": {
+        "name": "Wave 3",
+        "enemies": [
+            { "type": "enemy", "count": 10 },
+            { "type": "enemyfast", "count": 5 },
+            { "type": "enemytank", "count": 3 }
+        ]
+    },
+    "wave4": {
+        "name": "Wave 4",
+        "enemies": [
+            { "type": "enemy", "count": 20 },
+            { "type": "enemyfast", "count": 10 },
+            { "type": "enemytank", "count": 5 }
+        ]
+    },
+    "wave5": {
+        "name": "Wave 5",
+        "enemies": [
+            { "type": "enemy", "count": 25 },
+            { "type": "enemyfast", "count": 15 },
+            { "type": "enemytank", "count": 8 }
+        ]
+    },
+    "wave6": {
+        "name": "Wave 6",
+        "enemies": [
+            { "type": "enemy", "count": 30 },
+            { "type": "enemyfast", "count": 20 },
+            { "type": "enemytank", "count": 10 }
+        ]
+    },
+    "wave7": {
+        "name": "Wave 7",
+        "enemies": [
+            { "type": "enemy", "count": 35 },
+            { "type": "enemyfast", "count": 25 },
+            { "type": "enemytank", "count": 12 }
+        ]
+    },
+    "wave8": {
+        "name": "Wave 8",
+        "enemies": [
+            { "type": "enemy", "count": 40 },
+            { "type": "enemyfast", "count": 30 },
+            { "type": "enemytank", "count": 15 }
+        ]
+    }
+}
