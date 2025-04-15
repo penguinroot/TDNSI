@@ -20,7 +20,7 @@ class MachineGunTower:
             distance = math.sqrt((self.x - enemy.x) ** 2 + (self.y - enemy.y) ** 2)
             if distance <= self.range:
                 projectiles.append(Projectile(self.x, self.y, enemy))
-                self.cooldown = 1  # Temps de recharge plus court pour une mitrailleuse
+                self.cooldown = 5  # Temps de recharge plus court pour une mitrailleuse
                 break
 
     def upgrade(self):

@@ -61,5 +61,141 @@
             { "type": "enemyfast", "count": 30 },
             { "type": "enemyslow", "count": 15 }
         ]
+    },
+    "wave9": {
+        "name": "Wave 9",
+        "enemies": [
+            { "type": "enemy", "count": 45 },
+            { "type": "enemyfast", "count": 35 },
+            { "type": "enemyslow", "count": 18 }
+        ]
+    },
+    "wave10": {
+        "name": "Wave 10",
+        "enemies": [
+            { "type": "enemy", "count": 50 },
+            { "type": "enemyfast", "count": 40 },
+            { "type": "enemyslow", "count": 20 }
+        ]
+    },
+    "wave11": {
+        "name": "Wave 11",
+        "enemies": [
+            { "type": "enemy", "count": 55 },
+            { "type": "enemyfast", "count": 45 },
+            { "type": "enemyslow", "count": 22 }
+        ]
+    },
+    "wave12": {
+        "name": "Wave 12",
+        "enemies": [
+            { "type": "enemy", "count": 60 },
+            { "type": "enemyfast", "count": 50 },
+            { "type": "enemyslow", "count": 25 }
+        ]
+    },
+    "wave13": {
+        "name": "Wave 13",
+        "enemies": [
+            { "type": "enemy", "count": 65 },
+            { "type": "enemyfast", "count": 55 },
+            { "type": "enemyslow", "count": 28 }
+        ]
+    },
+    "wave14": {
+        "name": "Wave 14",
+        "enemies": [
+            { "type": "enemy", "count": 70 },
+            { "type": "enemyfast", "count": 60 },
+            { "type": "enemyslow", "count": 30 }
+        ]
+    },
+    "wave15": {
+        "name": "Wave 15",
+        "enemies": [
+            { "type": "enemy", "count": 75 },
+            { "type": "enemyfast", "count": 65 },
+            { "type": "enemyslow", "count": 32 }
+        ]
+    },
+    "wave16": {
+        "name": "Wave 16",
+        "enemies": [
+            { "type": "enemy", "count": 80 },
+            { "type": "enemyfast", "count": 70 },
+            { "type": "enemyslow", "count": 35 }
+        ]
+    },
+    "wave17": {
+        "name": "Wave 17",
+        "enemies": [
+            { "type": "enemy", "count": 85 },
+            { "type": "enemyfast", "count": 75 },
+            { "type": "enemyslow", "count": 38 }
+        ]
+    },
+    "wave18": {
+        "name": "Wave 18",
+        "enemies": [
+            { "type": "enemy", "count": 90 },
+            { "type": "enemyfast", "count": 80 },
+            { "type": "enemyslow", "count": 40 }
+        ]
+    },
+    "wave19": {
+        "name": "Wave 19",
+        "enemies": [
+            { "type": "enemy", "count": 95 },
+            { "type": "enemyfast", "count": 85 },
+            { "type": "enemyslow", "count": 42 }
+        ]
+    },
+    "wave20": {
+        "name": "Wave 20",
+        "enemies": [
+            { "type": "enemy", "count": 100 },
+            { "type": "enemyfast", "count": 90 },
+            { "type": "enemyslow", "count": 45 }
+        ]
+    },
+    "wave21": {
+        "name": "Wave 21",
+        "enemies": [
+            { "type": "enemy", "count": 105 },
+            { "type": "enemyfast", "count": 95 },
+            { "type": "enemyslow", "count": 48 }
+        ]
+    },
+    "wave22": {
+        "name": "Wave 22",
+        "enemies": [
+            { "type": "enemy", "count": 110 },
+            { "type": "enemyfast", "count": 100 },
+            { "type": "enemyslow", "count": 50 }
+        ]
+    },
+    "wave23": {
+        "name": "Wave 23",
+        "enemies": [
+            { "type": "enemy", "count": 115 },
+            { "type": "enemyfast", "count": 105 },
+            { "type": "enemyslow", "count": 52 }
+        ]
+    },
+    "wave24": {
+        "name": "Wave 24",
+        "enemies": [
+            { "type": "enemy", "count": 120 },
+            { "type": "enemyfast", "count": 110 },
+            { "type": "enemyslow", "count": 55 }
+        ]
+    },
+    "wave25": {
+        "name": "Wave 25",
+        "enemies": [
+            { "type": "enemy", "count": 125 },
+            { "type": "enemyfast", "count": 115 },
+            { "type": "enemyslow", "count": 58 }
+        ]
     }
 }
