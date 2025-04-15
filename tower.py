@@ -23,7 +23,7 @@ class Tower:
                 self.cooldown = 20
                 break
     def upgrade(self):  # <-- Méthode absente
-        if self.level < 3:
+        if self.level < 10:
             self.level += 1
             self.damage += 5
             self.range += 10

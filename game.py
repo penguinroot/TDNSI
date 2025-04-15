@@ -1,11 +1,14 @@
 import tkinter as tk
 import json
 from enemy import Enemy
-from tower import Tower
+from enemyfast import Enemy as EnemyFast  # Import EnemyFast
+from enemyslow import Enemy as EnemySlow  # Import EnemyTank
+from Tower import Tower
 from projectile import Projectile, MortarProjectile  # Import MortarProjectile
 from PIL import Image, ImageTk  # Importer Pillow pour le redimensionnement
-from tower2 import Tower2  # Ajoutez cette ligne pour importer Tower2
+from MortarTower import MortarTower  # Ajoutez cette ligne pour importer MortarTower
 from tkinter import simpledialog  # Import simpledialog correctly
+
 
 class TowerDefense:
     def __init__(self, root):
@@ -14,7 +17,7 @@ class TowerDefense:
         self.canvas.pack()
 
         # Charger les données de niveau
-        with open("d:/TD/path.json", "r") as file:
+        with open("d:/TDNSI/path.json", "r") as file:
             level_data = json.load(file)
         level_info = level_data.get("levelS", {})
         self.path = level_info.get("path", [])
@@ -84,9 +87,8 @@ class TowerDefense:
             self.canvas.create_oval(x-15, y-15, x+15, y+15, outline="green", width=2)  # Cercle vert pour indiquer la position
 
     def load_waves_data(self):
-        with open("d:/TD/waves.json", "r") as file:
+        with open("d:/TDNSI/waves.json", "r") as file:
             return json.load(file)
-
     def spawn_enemy(self):
         current_wave_key = f"wave{self.wave_number}"
         wave_data = self.waves_data.get(current_wave_key)
@@ -106,21 +108,16 @@ class TowerDefense:
         if self.spawn_queue:
             enemy_type = self.spawn_queue.pop(0)
             if enemy_type == "enemy":
-                self.enemies.append(Enemy(self.path))
-            elif enemy_type == "enemytank":
-                from enemytank import Enemy as EnemyTank
-                self.enemies.append(EnemyTank(self.path))
+                self.enemies.append(Enemy(self.path, sprites_folder="sprites/enemy", speed=2, max_health=50, animation_delay=8))
+            elif enemy_type == "enemyslow":
+                self.enemies.append(EnemySlow(self.path, sprites_folder="sprites/enemyslow", speed=1.5, max_health=100, animation_delay=15))
             elif enemy_type == "enemyfast":
-                from enemyfast import Enemy as EnemyFast
-                self.enemies.append(EnemyFast(self.path))        
-            # Programmer le prochain spawn
+                self.enemies.append(EnemyFast(self.path, sprites_folder="sprites/enemyfast", speed=3, max_health=25, animation_delay=5))
             self.root.after(1000, self.spawn_enemy)
         else:
-            # Fin du spawn pour cette vague
             del self.spawn_queue
             self.wave_in_progress = False
             print(f"Wave {self.wave_number} spawn completed")
-
     def start_wave(self):
         print(f"Starting wave {self.wave_number}")
         self.wave_in_progress = True
@@ -151,8 +148,24 @@ class TowerDefense:
     def draw_enemies(self):
         self.canvas.delete("enemy")
         for enemy in self.enemies:
-            self.canvas.create_image(enemy.x, enemy.y, image=enemy.get_image(), tags="enemy")
-
+            # Dessiner l'ennemi
+            img = self.canvas.create_image(enemy.x, enemy.y, image=enemy.get_image(), tags="enemy")  
+            # Déterminer la couleur en fonction du type
+            if isinstance(enemy, EnemyFast):  # Adapter les imports
+                color = "orange"
+            elif isinstance(enemy, EnemySlow):
+                color = "blue"
+            else:
+                color = "red"
+            # Calculer la largeur de la barre
+            health_width = 30 * (enemy.health / enemy.max_health)
+            # Dessiner la barre de vie
+            self.canvas.create_rectangle(
+                enemy.x - 15, enemy.y - 25,  # Position
+                enemy.x - 15 + health_width, enemy.y - 20,
+                fill=color, outline="black",
+                tags=("enemy", "healthbar")  # Tag pour suppression facile
+            )
     def place_tower(self, event):
         # Vérification de la position valide
         tolerance = 20
@@ -178,7 +191,7 @@ class TowerDefense:
             # Charger les images (à adapter à vos fichiers)
             try:
                 icon1 = ImageTk.PhotoImage(Image.open("tower1_icon.png").resize((64, 64)))
-                icon2 = ImageTk.PhotoImage(Image.open("tower2_icon.png").resize((64, 64)))
+                icon2 = ImageTk.PhotoImage(Image.open("MortarTower_icon.png").resize((64, 64)))
             except FileNotFoundError:
                 icon1 = tk.PhotoImage()  # Image vide si fichier manquant
                 icon2 = tk.PhotoImage()
@@ -203,19 +216,19 @@ class TowerDefense:
                 tower1_btn.config(state='disabled')
 
             # Bouton Tour Mortier
-            tower2_btn = tk.Button(
+            MortarTower_btn = tk.Button(
                 btn_frame,
                 image=icon2,
                 text=f"Mortier\n30$",
                 compound='top',
                 font=('Arial', 10, 'bold'),
                 fg='red' if self.money >= 30 else 'gray',
-                command=lambda: self.create_tower(valid_pos, "tower2", dialog)
+                command=lambda: self.create_tower(valid_pos, "MortarTower", dialog)
             )
-            tower2_btn.image = icon2  # Garder une référence
-            tower2_btn.grid(row=0, column=1, padx=10)
+            MortarTower_btn.image = icon2  # Garder une référence
+            MortarTower_btn.grid(row=0, column=1, padx=10)
             if self.money < 30:
-                tower2_btn.config(state='disabled')
+                MortarTower_btn.config(state='disabled')
             # Centrage de la fenêtre
             dialog.update_idletasks()
             width = dialog.winfo_width()
@@ -237,8 +250,8 @@ class TowerDefense:
             # Stocker l'ID du canvas dans l'objet Tower
             new_tower.canvas_id = self.canvas.create_rectangle(x-15, y-15, x+15, y+15, fill="blue", tags="tower")
             self.money -= 20
-        elif tower_type == "tower2" and self.money >= 30:
-            new_tower = Tower2(x, y)
+        elif tower_type == "MortarTower" and self.money >= 30:
+            new_tower = MortarTower(x, y)
             self.towers.append(new_tower)
             new_tower.canvas_id = self.canvas.create_rectangle(x-15, y-15, x+15, y+15, fill="red", tags="tower")
             self.money -= 30
@@ -316,6 +329,7 @@ class TowerDefense:
         y = self.root.winfo_screenheight()//2 - height//2
         dialog.geometry(f"+{x}+{y}")
     def update_game(self):
+        self.canvas.delete("healthbar")
         self.move_enemies()
         self.attack_enemies()
         self.move_projectiles()
