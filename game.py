@@ -22,8 +22,7 @@ class TowerDefense:
         level_info = level_data.get("levelS", {})
         self.path = level_info.get("path", [])
         self.tower_positions = level_info.get("tower_positions", [])  # Charger les positions des tours
-        print(f"Path: {self.path}")
-        print(f"Tower Positions: {self.tower_positions}")
+
         
         if not self.path:
             print("No path found in level data.")
@@ -103,7 +102,6 @@ class TowerDefense:
                 enemy_type = enemy_info["type"]
                 count = enemy_info["count"]
                 self.spawn_queue.extend([enemy_type] * count)
-            print(f"Spawn queue for {current_wave_key}: {self.spawn_queue}")
 
         if self.spawn_queue:
             enemy_type = self.spawn_queue.pop(0)
@@ -117,16 +115,13 @@ class TowerDefense:
         else:
             del self.spawn_queue
             self.wave_in_progress = False
-            print(f"Wave {self.wave_number} spawn completed")
     def start_wave(self):
-        print(f"Starting wave {self.wave_number}")
         self.wave_in_progress = True
         self.spawn_enemy()
 
     def next_wave(self):
         if self.wave_in_progress:
             return
-        print(f"Preparing wave {self.wave_number + 1}")
         self.wave_number += 1
         self.start_wave()
 
@@ -190,7 +185,7 @@ class TowerDefense:
 
             # Charger les images (à adapter à vos fichiers)
             try:
-                icon1 = ImageTk.PhotoImage(Image.open("tower1_icon.png").resize((64, 64)))
+                icon1 = ImageTk.PhotoImage(Image.open("Tower_icon.png").resize((64, 64)))
                 icon2 = ImageTk.PhotoImage(Image.open("MortarTower_icon.png").resize((64, 64)))
                 icon_machine_gun = ImageTk.PhotoImage(Image.open("MachineGunTower_icon.png").resize((64, 64)))  # Nouvelle icône
             except FileNotFoundError:
@@ -267,23 +262,25 @@ class TowerDefense:
             # Stocker l'ID du canvas dans l'objet Tower
             new_tower.canvas_id = self.canvas.create_rectangle(x-15, y-15, x+15, y+15, fill="blue", tags="tower")
             self.money -= 20
+            self.canvas.itemconfig(self.money_text, text=f"Money: {self.money}")
         elif tower_type == "MortarTower" and self.money >= 30:
             new_tower = MortarTower(x, y)
             self.towers.append(new_tower)
             new_tower.canvas_id = self.canvas.create_rectangle(x-15, y-15, x+15, y+15, fill="red", tags="tower")
             self.money -= 30
+            self.canvas.itemconfig(self.money_text, text=f"Money: {self.money}")
         if tower_type == "MachineGunTower" and self.money >= 30:
             new_tower = MachineGunTower(x, y)
             self.towers.append(new_tower)
             new_tower.canvas_id = self.canvas.create_rectangle(x-15, y-15, x+15, y+15, fill="green", tags="tower")
             self.money -= 30
+            self.canvas.itemconfig(self.money_text, text=f"Money: {self.money}")
     def upgrade_tower(self, tower, dialog):
         if self.money >= tower.upgrade_cost:
-            tower.upgrade()
             self.money -= tower.upgrade_cost
+            tower.upgrade()
             self.canvas.itemconfig(self.money_text, text=f"Money: {self.money}")
             dialog.destroy()
-            # Mettre à jour l'affichage de la tour
             self.update_tower_display(tower)
         else:
             print("Fonds insuffisants")

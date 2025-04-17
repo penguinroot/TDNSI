@@ -59,7 +59,5 @@ class MortarProjectile(Projectile):
                 # Dégâts maximum à l'impact, réduction linéaire jusqu'à zéro à la limite du rayon
                 damage = max(0, self.damage * (1 - (distance / 50)))  # 50 est le rayon d'explosion
                 enemy.health -= damage  # Appliquer les dégâts
-                print(f"Enemy at ({enemy.x}, {enemy.y}) took {damage} damage. Remaining health: {enemy.health}")
-                print(f"Distance: {distance}, Damage: {damage}")
                 if enemy.health <= 0:
                     self.enemies.remove(enemy)  # Supprimer l'ennemi si sa santé est à zéro
