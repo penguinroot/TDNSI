@@ -1,4 +1,5 @@
 import math
+import json
 from projectile import Projectile  # Import the Projectile class
 
 class Tower:
@@ -16,35 +17,18 @@ class Tower:
         
     def load_technologies(self):
         """
-        Charge les technologies disponibles pour cette tour.
+        Charge les technologies disponibles pour cette tour depuis un fichier JSON.
         Retourne un dictionnaire avec les technologies débloquables.
         """
-        return {
-            "base_attack": {
-                "name": "Attaque de Base",
-                "cost": 10,
-                "dependencies": [],
-                "effects": {
-                    "damage": 1,
-                    "description": "Augmente les dégâts de base"
-                },
-                "max_level": 5,
-                "level": 0,
-                "unlocked": True
-            },
-            "rapid_fire": {
-                "name": "Tir Rapide",
-                "cost": 20,
-                "dependencies": ["base_attack"],
-                "effects": {
-                    "speed": 0.2,
-                    "description": "Augmente la vitesse de tir"
-                },
-                "max_level": 3,
-                "level": 0,
-                "unlocked": False
-            }
-        }
+        try:
+            with open("technologies.json", "r") as file:
+                return json.load(file)
+        except FileNotFoundError:
+            print("Le fichier technologies.json est introuvable.")
+            return {}
+        except json.JSONDecodeError:
+            print("Erreur de décodage JSON dans le fichier technologies.json.")
+            return {}
         
     def gain_experience(self, amount):
         """
