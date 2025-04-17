@@ -1,23 +1,24 @@
 import math
 
 class Projectile:
-    def __init__(self, x, y, target):
+    def __init__(self, x, y, target, tower=None):
         self.x = x
         self.y = y
         self.target = target
         self.speed = 5
+        self.tower = tower  # Tour associée au projectile, si applicable
 
     def move(self):
         dx = self.target.x - self.x
         dy = self.target.y - self.y
         distance = math.sqrt(dx ** 2 + dy ** 2)
-
         if distance < 5:  # Collision
             self.target.health -= 10
             if self.target.health <= 0:
+                if self.tower:  # Si une tour est associée au projectile
+                    self.tower.gain_experience(10000)  # Donnez de l'expérience à la tour
                 return (self.x, self.y)  # Retourner la position de l'impact
             return (self.x, self.y)
-
         else:
             self.x += self.speed * dx / distance
             self.y += self.speed * dy / distance

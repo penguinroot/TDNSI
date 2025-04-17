@@ -15,6 +15,7 @@ class TowerDefense:
         self.root = root
         self.canvas = tk.Canvas(root, width=root.winfo_screenwidth(), height=root.winfo_screenheight(), bg="white")
         self.canvas.pack()
+    
 
         # Charger les données de niveau
         with open("d:/TDNSI/path.json", "r") as file:
@@ -48,7 +49,7 @@ class TowerDefense:
         self.tower_health = 100
         self.health_text = self.canvas.create_text(50, 20, text=f"Health: {self.tower_health}", font=("Arial", 16), fill="black")
 
-        self.money = 200
+        self.money = 20000
         self.money_text = self.canvas.create_text(750, 20, text=f"Money: {self.money}", font=("Arial", 16), fill="black")
 
                 # Dans TowerDefense.__init__() :
@@ -71,8 +72,12 @@ class TowerDefense:
         for tower in self.towers:
             if (abs(x - tower.x) < 15) and (abs(y - tower.y) < 15):
                 self.selected_tower = tower
-                self.show_upgrade_dialog(tower)
+                # Création de l'interface des technologies
+                from tower_technology_ui import TowerTechnologyUI
+                TowerTechnologyUI(self.root, tower)
                 break
+
+
 
     def draw_path(self):
         for i in range(len(self.path) - 1):
@@ -275,20 +280,7 @@ class TowerDefense:
             new_tower.canvas_id = self.canvas.create_rectangle(x-15, y-15, x+15, y+15, fill="green", tags="tower")
             self.money -= 30
             self.canvas.itemconfig(self.money_text, text=f"Money: {self.money}")
-    def upgrade_tower(self, tower, dialog):
-        if self.money >= tower.upgrade_cost:
-            self.money -= tower.upgrade_cost
-            tower.upgrade()
-            self.canvas.itemconfig(self.money_text, text=f"Money: {self.money}")
-            dialog.destroy()
-            self.update_tower_display(tower)
-        else:
-            print("Fonds insuffisants")
 
-    def update_tower_display(self, tower):
-        colors = {1: "blue", 2: "purple", 3: "gold"}
-        # Utiliser l'ID canvas spécifique à la tour
-        self.canvas.itemconfigure(tower.canvas_id, fill=colors.get(tower.level, "blue"))
     def attack_enemies(self):
         for tower in self.towers:
             tower.attack(self.enemies, self.projectiles)
@@ -326,27 +318,7 @@ class TowerDefense:
         self.canvas.delete("projectile")
         for projectile in self.projectiles:
             self.canvas.create_oval(projectile.x-5, projectile.y-5, projectile.x+5, projectile.y+5, fill="black", tags="projectile")
-    def show_upgrade_dialog(self, tower):
-        dialog = tk.Toplevel(self.root)
-        dialog.title(f"Upgrade Tour Niveau {tower.level}")
-        
-        tk.Label(dialog, text=f"Coût: {tower.upgrade_cost}$").pack(padx=20, pady=5)
-        
-        btn = tk.Button(
-            dialog,
-            text="Améliorer",
-            command=lambda: self.upgrade_tower(tower, dialog),
-            state='normal' if self.money >= tower.upgrade_cost else 'disabled'
-        )
-        btn.pack(pady=10)
-        
-        # Positionnement au centre
-        dialog.update_idletasks()
-        width = dialog.winfo_width()
-        height = dialog.winfo_height()
-        x = self.root.winfo_screenwidth()//2 - width//2
-        y = self.root.winfo_screenheight()//2 - height//2
-        dialog.geometry(f"+{x}+{y}")
+    
     def update_game(self):
         self.canvas.delete("healthbar")
         self.move_enemies()

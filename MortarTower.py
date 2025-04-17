@@ -13,8 +13,11 @@ class MortarTower:
         self.damage = 5  # Dégâts de la tour
         self.cooldown = 0
         self.level = 1  # Niveau de la tour
-        self.upgrade_cost = 20  # Coût de mise à niveau
-
+        self.upgrade_cost = {
+            'damage': 60,
+            'range': 50,
+            'speed': 40
+        }
     def attack(self, enemies, projectiles):
         if self.cooldown > 0:
             self.cooldown -= 1
