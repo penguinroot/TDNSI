@@ -1,0 +1,51 @@
+{
+    "rapid_fire": {
+        "name": "Tir Rapide",
+        "description": "Réduit le temps de recharge de la tour.",
+        "cost": 3,
+        "level": 1,
+        "max_level": 5,
+        "unlocked": false,
+        "dependencies": [],
+        "effects": {
+            "speed": 1
+        }
+    },
+    "long_range": {
+        "name": "Portée Longue",
+        "description": "Augmente la portée de la tour.",
+        "cost": 4,
+        "level": 1,
+        "max_level": 3,
+        "unlocked": false,
+        "dependencies": [],
+        "effects": {
+            "range": 20
+        }
+    },
+    "high_damage": {
+        "name": "Dégâts Élevés",
+        "description": "Augmente les dégâts infligés par la tour.",
+        "cost": 5,
+        "level": 1,
+        "max_level": 4,
+        "unlocked": false,
+        "dependencies": ["rapid_fire"],
+        "effects": {
+            "damage": 5
+        }
+    },
+    "precision_targeting": {
+        "name": "Ciblage Précis",
+        "description": "Améliore la précision et les dégâts critiques.",
+        "cost": 6,
+        "level": 1,
+        "max_level": 2,
+        "unlocked": false,
+        "dependencies": ["long_range", "high_damage"],
+        "effects": {
+            "damage": 10,
+            "range": 10
+        }
+    }
+}
